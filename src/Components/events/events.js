@@ -12,7 +12,7 @@ const Events = ({ user, getEvents, events }) => {
   const handleEditEvent = useCallback((eventID, updatedData) => {
     if (eventID) {
       axios
-        .put(`http://localhost:3001/api/events/${eventID}`, updatedData)
+        .put(`${process.env.REACT_APP_API_BASE_URL}/events/${eventID}`, updatedData)
         .then((response) => {
           getEvents();
         })
@@ -27,7 +27,7 @@ const Events = ({ user, getEvents, events }) => {
   const handleDeleteEvent = useCallback((eventID) => {
     if (eventID) {
       axios
-        .delete(`http://localhost:3001/api/events/${eventID}`)
+        .delete(`${process.env.REACT_APP_API_BASE_URL}/events/${eventID}`)
         .then((response) => {
           getEvents();
         })

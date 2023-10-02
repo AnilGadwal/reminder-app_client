@@ -24,7 +24,7 @@ const Registration = () => {
     console.log("handleSubmit triggered");
     try {
       const response = await axios.post(
-        "http://localhost:3001/api/registration",
+        `${process.env.REACT_APP_API_BASE_URL}/registration`,
         formData
       );
       console.log(response.data);

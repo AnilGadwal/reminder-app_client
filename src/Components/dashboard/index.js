@@ -13,7 +13,7 @@ const Dashboard = () => {
   };
   const getEvents = () => {
     axios
-      .get("http://localhost:3001/api/events", config)
+      .get(`${process.env.REACT_APP_API_BASE_URL}/events`, config)
       .then((response) => {
         setEvents(response.data.events);
       })

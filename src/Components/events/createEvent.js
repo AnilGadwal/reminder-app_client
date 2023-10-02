@@ -36,7 +36,7 @@ const CreateEvent = ({ setOpenAddTask, user }) => {
           });
 
           const response = await axios.post(
-            "http://localhost:3001/api/createNewEvent",
+            `${process.env.REACT_APP_API_BASE_URL}/createNewEvent`,
             { ...formData, push },
             config
           );
@@ -55,7 +55,7 @@ const CreateEvent = ({ setOpenAddTask, user }) => {
       });
 
       const response = await axios.post(
-        "http://localhost:3001/api/createNewEvent",
+        `${process.env.REACT_APP_API_BASE_URL}/createNewEvent`,
         { ...formData, push },
         config
       );

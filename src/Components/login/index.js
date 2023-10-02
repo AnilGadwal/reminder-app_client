@@ -23,7 +23,7 @@ const Login = () => {
     console.log("handleSubmit triggered");
     try {
       const response = await axios.post(
-        "http://localhost:3001/api/login",
+        `${process.env.REACT_APP_API_BASE_URL}/login`,
         formData
       );
       const { user } = response.data;
