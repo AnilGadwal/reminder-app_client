@@ -25,43 +25,40 @@ const CreateEvent = ({ setOpenAddTask, user }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if ("Notification" in window && Notification.permission !== "granted") {
-      try {
+    
+    try {
+      let push = null;
+      if ("Notification" in window && Notification.permission !== "granted") {
         const permission = await Notification.requestPermission();
         if (permission === "granted") {
           let service = await navigator.serviceWorker.ready;
-          let push = await service.pushManager.subscribe({
+          push = await service.pushManager.subscribe({
             userVisibleOnly: true,
             applicationServerKey: process.env.REACT_APP_VAPID_PUBLIC_KEY,
           });
-
-          const response = await axios.post(
-            `${process.env.REACT_APP_API_BASE_URL}/createNewEvent`,
-            { ...formData, push },
-            config
-          );
-          setOpenAddTask(false);
         } else {
           console.log("Notification permission denied");
+          return; // Do not proceed if notification permission is denied
         }
-      } catch (error) {
-        console.error("Notification permission error:", error);
+      } else {
+        let service = await navigator.serviceWorker.ready;
+        push = await service.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: process.env.REACT_APP_VAPID_PUBLIC_KEY,
+        });
       }
-    } else {
-      let service = await navigator.serviceWorker.ready;
-      let push = await service.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: process.env.REACT_APP_VAPID_PUBLIC_KEY,
-      });
-
+  
       const response = await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/createNewEvent`,
         { ...formData, push },
         config
       );
+  
       setOpenAddTask(false);
+    } catch (error) {
+      console.error("Error occurred:", error);
     }
-  };
+  };  
 
   return (
     <div>
