@@ -4,7 +4,7 @@ import EditEvent from "./editEvent";
 const EventCard = ({ event, onDel, onEdit }) => {
   const [openEditTask, setOpenEditTask] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const eventDate = new Date(event.event_date);
+  const eventDate = new Date(event.adjusted_event_date);
   const description = event.description || "";
   const priority = event.priority || "low";
   

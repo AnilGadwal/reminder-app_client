@@ -3,7 +3,7 @@ import {getToday, getLocalTime} from '../../utils'
 
 const EditEvent = ({ setOpenEditTask, onEdit, eventID, currentEvent, currentDate }) => {
   const [formData, setFormData] = useState({
-    event_date: getLocalTime(currentEvent.event_date),
+    event_date: getLocalTime(currentEvent.adjusted_event_date),
     description: currentEvent.description,
     type: currentEvent.type,
     priority: currentEvent.priority,
